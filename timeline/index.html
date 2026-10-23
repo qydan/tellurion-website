@@ -43,14 +43,7 @@
       <div>
         <p class="eyebrow">Timeline</p>
         <h1>What we've shipped.</h1>
-        <p class="lede" style="margin-top:20px">Research notes, papers, hackathons, releases and posts, newest first. Planned work is marked with an open circle.</p>
-      </div>
-      <div class="filters" role="group" aria-label="Show">
-        <button type="button" data-filter="all" aria-pressed="true">All</button>
-        <button type="button" data-filter="research" aria-pressed="false">Research</button>
-        <button type="button" data-filter="hackathon" aria-pressed="false">Hackathons</button>
-        <button type="button" data-filter="release" aria-pressed="false">Releases</button>
-        <button type="button" data-filter="blog" aria-pressed="false">Posts</button>
+        <p class="lede" style="margin-top:20px">Research, hackathons, releases and posts, newest first. Planned work has an open circle.</p>
       </div>
     </div>
   </section>
@@ -59,9 +52,10 @@
     <div class="wrap">
       <!--
         HOW TO ADD AN ENTRY: copy one <li class="tl-item"> block, put it at the top of its year,
-        set data-kind to research | paper | hackathon | release | blog | talk, and fill in date, title, text, links.
+        set data-kind and the tag text to research | hackathon | release | blog, and fill in date, title, text, links.
         Planned work: add class "planned" and use <span class="when"> instead of <time>.
-        The homepage "Latest" cards are edited separately in index.html.
+        The homepage "From the lab" cards are edited separately in index.html.
+        Filter buttons were removed while there are only a few entries; bring them back at ~6.
       -->
       <ol class="timeline" id="timeline">
         <li class="tl-year" aria-hidden="true">Next</li>
@@ -75,37 +69,17 @@
         </li>
 
         <li class="tl-year" aria-hidden="true">2026</li>
-        <li class="tl-item" data-kind="research">
-          <time datetime="2026-10-23">Oct 23</time>
-          <div class="tl-body">
-            <div class="meta"><span class="kind" data-k="research">Research note</span></div>
-            <h3><a href="../research/">Research note 01: Tellurion Referee</a></h3>
-            <p>How the referee decides whether the model, the instrument or something new is behind a disagreement, with the full results and what doesn't work yet.</p>
-            <div class="tl-links"><a href="../research/">Read the note →</a></div>
-          </div>
-        </li>
-        <li class="tl-item" data-kind="release">
-          <time datetime="2026-10-22">Oct 22</time>
-          <div class="tl-body">
-            <div class="meta"><span class="kind" data-k="release">Release</span></div>
-            <h3><a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Referee v0.1 and the locked test</a></h3>
-            <p>A locked test of 1,000 simulated pendulum runs, run once from a tagged commit. The model's own confidence missed 25.9% of real problems; the referee missed 3.6%.</p>
-            <div class="tl-links">
-              <a href="https://github.com/tellurionai/tellurion-referee">Code</a>
-              <a href="https://github.com/tellurionai/tellurion-referee/blob/main/docs/results_fact_sheet.md">Fact sheet</a>
-              <a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Tag v0.1-hackathon-test</a>
-            </div>
-          </div>
-        </li>
         <li class="tl-item" data-kind="hackathon">
           <time datetime="2026-10-22">Oct 21–22</time>
           <div class="tl-body">
             <div class="meta"><span class="kind" data-k="hackathon">Hackathon</span></div>
-            <h3>Open Scientific Intelligence Hackathon</h3>
-            <p>Built Tellurion Referee in two days: a simulated pendulum with an answer key, a learned world model, the referee, and a live demo.</p>
+            <h3><a href="../research/">Tellurion Referee at the Open Scientific Intelligence Hackathon</a></h3>
+            <p>In two days: a simulated pendulum with an answer key, a learned world model, and a referee that names why the model and the measurements disagree. Tested once on a locked set of 1,000 runs: the model's own confidence missed 25.9% of real problems; the referee missed 3.6%.</p>
             <div class="tl-links">
-              <a href="https://tellurionai.github.io/tellurion-referee/">Live demo</a>
+              <a href="../research/">Write-up</a>
               <a href="https://github.com/tellurionai/tellurion-referee">Code</a>
+              <a href="https://tellurionai.github.io/tellurion-referee/">Live demo</a>
+              <a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Release v0.1</a>
             </div>
           </div>
         </li>
@@ -121,25 +95,5 @@
   </div>
 </footer>
 
-<script>
-(function () {
-  var buttons = document.querySelectorAll('.filters button');
-  var items = document.querySelectorAll('.tl-item');
-  var years = document.querySelectorAll('.tl-year');
-  function apply(f) {
-    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.filter === f)); });
-    items.forEach(function (li) {
-      var k = li.dataset.kind; var match = f === 'all' || k === f || (f === 'research' && k === 'paper') || (f === 'blog' && k === 'talk');
-      li.hidden = !match;
-    });
-    years.forEach(function (y) {
-      var n = y.nextElementSibling, any = false;
-      while (n && !n.classList.contains('tl-year')) { if (!n.hidden) any = true; n = n.nextElementSibling; }
-      y.hidden = !any;
-    });
-  }
-  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.filter); }); });
-})();
-</script>
 </body>
 </html>

@@ -125,3 +125,57 @@ td.ours { font-weight: 600; color: var(--ink); }
   .section > .wrap { padding-block: 64px; }
 }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; animation: none !important; } }
+
+/* ---------- timeline ---------- */
+.kind { display: inline-block; font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; padding: 3px 9px; border: 1px solid #4A5D70; border-radius: 99px; color: var(--mist); white-space: nowrap; }
+.kind[data-k="paper"], .kind[data-k="research"] { border-color: var(--brass); color: var(--brass); }
+.kind[data-k="hackathon"] { border-color: #8FB3D1; color: #A9C6DE; }
+.kind[data-k="release"] { border-color: #9DB59A; color: #B5CBB2; }
+.kind[data-k="blog"], .kind[data-k="talk"] { border-color: #C9B8A0; color: #DCCDB8; }
+
+.tl-head .wrap { padding-block: 56px 32px; display: flex; flex-wrap: wrap; gap: 24px 48px; justify-content: space-between; align-items: flex-end; }
+.tl-head h1 { font-size: clamp(44px, 6vw, 80px); }
+.filters { display: flex; flex-wrap: wrap; gap: 8px; }
+.filters button { font: 500 14px var(--body); color: var(--mist); background: none; border: 1px solid #34475A; border-radius: 99px; padding: 8px 14px; min-height: 40px; cursor: pointer; }
+.filters button:hover { border-color: var(--brass); color: var(--ivory); }
+.filters button[aria-pressed="true"] { background: var(--brass); border-color: var(--brass); color: var(--navy); }
+.filters button:focus-visible { outline: 2px solid var(--brass); outline-offset: 2px; }
+
+.timeline { list-style: none; margin: 0; padding: 0 0 96px; position: relative; }
+.timeline::before { content: ""; position: absolute; left: 150px; top: 8px; bottom: 96px; width: 1px; background: var(--rule-dark); }
+.tl-year { position: relative; margin: 40px 0 18px; padding-left: 186px; font-family: var(--display); font-size: 40px; line-height: 1; color: var(--ivory); }
+.tl-year:first-child { margin-top: 8px; }
+.tl-item { position: relative; display: grid; grid-template-columns: 150px minmax(0, 1fr); column-gap: 36px; padding: 18px 0 26px; }
+.tl-item time, .tl-item .when { font-family: var(--mono); font-size: 13px; color: var(--mist); padding-top: 4px; text-align: right; padding-right: 24px; }
+.tl-item::before { content: ""; position: absolute; left: 144px; top: 25px; width: 13px; height: 13px; border-radius: 50%; background: var(--brass); box-shadow: 0 0 0 5px var(--navy); }
+.tl-item.planned::before { background: var(--navy); border: 1.5px solid var(--brass); width: 10px; height: 10px; left: 145px; top: 26px; }
+.tl-body { min-width: 0; max-width: 70ch; }
+.tl-body .meta { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 10px; }
+.tl-body h3 { font-size: 28px; line-height: 1.15; }
+.tl-body h3 a { color: inherit; text-decoration: none; }
+.tl-body h3 a:hover { color: var(--brass); }
+.tl-body p { margin: 8px 0 0; color: var(--mist); }
+.tl-links { display: flex; flex-wrap: wrap; gap: 6px 18px; margin-top: 12px; font-size: 15px; }
+.tl-item.planned h3 { color: var(--mist); }
+.tl-item[hidden] { display: none; }
+.planned-tag { font-family: var(--mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--brass); }
+
+/* homepage "latest" strip */
+.latest-head { display: flex; flex-wrap: wrap; gap: 12px 32px; justify-content: space-between; align-items: baseline; margin-bottom: 32px; }
+.latest { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1px; background: var(--rule-dark); border: 1px solid var(--rule-dark); }
+.latest a.card { background: var(--navy); padding: 26px 24px 28px; text-decoration: none; color: inherit; display: flex; flex-direction: column; gap: 12px; }
+.latest a.card:hover { background: #12233A; }
+.latest a.card:hover h3 { color: var(--brass); }
+.latest .card time { font-family: var(--mono); font-size: 13px; color: var(--mist); }
+.latest .card h3 { font-size: 26px; }
+.latest .card p { margin: 0; color: var(--mist); font-size: 15px; }
+
+@media (max-width: 760px) {
+  .timeline::before { left: 6px; }
+  .tl-year { padding-left: 30px; }
+  .tl-item { grid-template-columns: minmax(0, 1fr); padding-left: 30px; }
+  .tl-item time, .tl-item .when { text-align: left; padding: 0 0 6px; }
+  .tl-item::before { left: 0; top: 22px; }
+  .tl-item.planned::before { left: 1px; top: 23px; }
+  .latest { grid-template-columns: minmax(0, 1fr); }
+}

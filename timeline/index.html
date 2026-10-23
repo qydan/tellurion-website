@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Timeline · Tellurion</title>
+<meta name="description" content="Everything Tellurion ships, in order: research notes, papers, hackathons, releases and posts.">
+<link rel="canonical" href="https://tellurionai.com/timeline/">
+<meta name="theme-color" content="#0E1B2C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tellurion">
+<meta property="og:title" content="Tellurion timeline">
+<meta property="og:description" content="Research notes, papers, hackathons, releases and posts, in order.">
+<meta property="og:url" content="https://tellurionai.com/timeline/">
+<meta property="og:image" content="https://tellurionai.com/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Tellurion home"><svg width="52" height="32" viewBox="95 300 1010 620" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor"><path d="M1086.3 650.8A487.3 201.25 0 1 1 886.6 474.0" stroke-width="18.56" transform="rotate(-18.04 600.2 636.8)"/><path d="M987.9 352.4A125.2 55.8 0 0 1 1036.2 361.1" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M1080.6 384.7A125.2 55.8 0 0 1 990.1 462.2" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M944.5 462.4A125.2 55.8 0 0 1 942.3 352.6" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/></g><g fill="currentColor"><circle cx="599.6" cy="637.6" r="108.5"/><circle cx="966.2" cy="407.6" r="37"/><circle cx="1047.6" cy="346.2" r="12.5"/></g></svg><span>Tellurion</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../timeline/" aria-current="page">Timeline</a>
+      <a href="../research/">Research</a>
+      <a href="https://github.com/tellurionai">Open source</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="tl-head">
+    <div class="wrap">
+      <div>
+        <p class="eyebrow">Timeline</p>
+        <h1>What we've shipped.</h1>
+        <p class="lede" style="margin-top:20px">Research notes, papers, hackathons, releases and posts, newest first. Planned work is marked with an open circle.</p>
+      </div>
+      <div class="filters" role="group" aria-label="Show">
+        <button type="button" data-filter="all" aria-pressed="true">All</button>
+        <button type="button" data-filter="research" aria-pressed="false">Research</button>
+        <button type="button" data-filter="hackathon" aria-pressed="false">Hackathons</button>
+        <button type="button" data-filter="release" aria-pressed="false">Releases</button>
+        <button type="button" data-filter="blog" aria-pressed="false">Posts</button>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="wrap">
+      <!--
+        HOW TO ADD AN ENTRY: copy one <li class="tl-item"> block, put it at the top of its year,
+        set data-kind to research | paper | hackathon | release | blog | talk, and fill in date, title, text, links.
+        Planned work: add class "planned" and use <span class="when"> instead of <time>.
+        The homepage "Latest" cards are edited separately in index.html.
+      -->
+      <ol class="timeline" id="timeline">
+        <li class="tl-year" aria-hidden="true">Next</li>
+        <li class="tl-item planned" data-kind="research">
+          <span class="when">Planned</span>
+          <div class="tl-body">
+            <div class="meta"><span class="kind" data-k="research">Research</span></div>
+            <h3>Referee v0.2: real pendulum data</h3>
+            <p>Recordings from a real pendulum, with faults we introduce ourselves, and a referee that waits a moment after the alarm before naming the cause.</p>
+          </div>
+        </li>
+
+        <li class="tl-year" aria-hidden="true">2026</li>
+        <li class="tl-item" data-kind="research">
+          <time datetime="2026-10-23">Oct 23</time>
+          <div class="tl-body">
+            <div class="meta"><span class="kind" data-k="research">Research note</span></div>
+            <h3><a href="../research/">Research note 01: Tellurion Referee</a></h3>
+            <p>How the referee decides whether the model, the instrument or something new is behind a disagreement, with the full results and what doesn't work yet.</p>
+            <div class="tl-links"><a href="../research/">Read the note →</a></div>
+          </div>
+        </li>
+        <li class="tl-item" data-kind="release">
+          <time datetime="2026-10-22">Oct 22</time>
+          <div class="tl-body">
+            <div class="meta"><span class="kind" data-k="release">Release</span></div>
+            <h3><a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Referee v0.1 and the locked test</a></h3>
+            <p>A locked test of 1,000 simulated pendulum runs, run once from a tagged commit. The model's own confidence missed 25.9% of real problems; the referee missed 3.6%.</p>
+            <div class="tl-links">
+              <a href="https://github.com/tellurionai/tellurion-referee">Code</a>
+              <a href="https://github.com/tellurionai/tellurion-referee/blob/main/docs/results_fact_sheet.md">Fact sheet</a>
+              <a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Tag v0.1-hackathon-test</a>
+            </div>
+          </div>
+        </li>
+        <li class="tl-item" data-kind="hackathon">
+          <time datetime="2026-10-22">Oct 21–22</time>
+          <div class="tl-body">
+            <div class="meta"><span class="kind" data-k="hackathon">Hackathon</span></div>
+            <h3>Open Scientific Intelligence Hackathon</h3>
+            <p>Built Tellurion Referee in two days: a simulated pendulum with an answer key, a learned world model, the referee, and a live demo.</p>
+            <div class="tl-links">
+              <a href="https://tellurionai.github.io/tellurion-referee/">Live demo</a>
+              <a href="https://github.com/tellurionai/tellurion-referee">Code</a>
+            </div>
+          </div>
+        </li>
+      </ol>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="wrap base" style="padding-top:32px">
+    <span>© 2026 Tellurion · <a href="mailto:hello@tellurionai.com">hello@tellurionai.com</a></span>
+    <span class="motto">Nullius in verba</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var buttons = document.querySelectorAll('.filters button');
+  var items = document.querySelectorAll('.tl-item');
+  var years = document.querySelectorAll('.tl-year');
+  function apply(f) {
+    buttons.forEach(function (b) { b.setAttribute('aria-pressed', String(b.dataset.filter === f)); });
+    items.forEach(function (li) {
+      var k = li.dataset.kind; var match = f === 'all' || k === f || (f === 'research' && k === 'paper') || (f === 'blog' && k === 'talk');
+      li.hidden = !match;
+    });
+    years.forEach(function (y) {
+      var n = y.nextElementSibling, any = false;
+      while (n && !n.classList.contains('tl-year')) { if (!n.hidden) any = true; n = n.nextElementSibling; }
+      y.hidden = !any;
+    });
+  }
+  buttons.forEach(function (b) { b.addEventListener('click', function () { apply(b.dataset.filter); }); });
+})();
+</script>
+</body>
+</html>

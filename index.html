@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Tellurion — World models for science that know when they're wrong</title>
+<meta name="description" content="Tellurion builds tools that check AI models of physical systems against reality, and say whether a disagreement is the model, the instrument, or something new.">
+<link rel="canonical" href="https://tellurionai.com/">
+<meta name="theme-color" content="#0E1B2C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tellurion">
+<meta property="og:title" content="Tellurion — World models for science that know when they're wrong">
+<meta property="og:description" content="Tools that check AI models of physical systems against reality, and say why they disagree.">
+<meta property="og:url" content="https://tellurionai.com/">
+<meta property="og:image" content="https://tellurionai.com/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="Tellurion home"><svg viewBox="95 300 1010 620" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor"><path d="M1086.3 650.8A487.3 201.25 0 1 1 886.6 474.0" stroke-width="18.56" transform="rotate(-18.04 600.2 636.8)"/><path d="M987.9 352.4A125.2 55.8 0 0 1 1036.2 361.1" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M1080.6 384.7A125.2 55.8 0 0 1 990.1 462.2" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M944.5 462.4A125.2 55.8 0 0 1 942.3 352.6" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/></g><g fill="currentColor"><circle cx="599.6" cy="637.6" r="108.5"/><circle cx="966.2" cy="407.6" r="37"/><circle cx="1047.6" cy="346.2" r="12.5"/></g></svg><span>Tellurion</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="/research/">Research</a>
+      <a href="https://github.com/tellurionai">Open source</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero">
+    <div class="wrap">
+      <div class="hero-copy">
+        <p class="eyebrow">Nullius in verba · take nobody's word for it</p>
+        <h1>World models for science that know when they're wrong.</h1>
+        <p class="lede" style="margin-top:28px">AI models now stand in for real instruments, experiments and physical systems. We build the tools that check them against reality, and say why they disagree when they do.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="/research/">Read our first result</a>
+          <a class="btn btn-ghost" href="https://github.com/tellurionai/tellurion-referee">View the code</a>
+        </div>
+      </div>
+      <div class="hero-mark"><svg viewBox="95 300 1010 620" role="img" aria-label="The Tellurion mark: the Earth and Moon orbiting the Sun"><g fill="none" stroke="currentColor"><path d="M1086.3 650.8A487.3 201.25 0 1 1 886.6 474.0" stroke-width="18.56" transform="rotate(-18.04 600.2 636.8)"/><path d="M987.9 352.4A125.2 55.8 0 0 1 1036.2 361.1" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M1080.6 384.7A125.2 55.8 0 0 1 990.1 462.2" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M944.5 462.4A125.2 55.8 0 0 1 942.3 352.6" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/></g><g fill="currentColor"><circle cx="599.6" cy="637.6" r="108.5"/><circle cx="966.2" cy="407.6" r="37"/><circle cx="1047.6" cy="346.2" r="12.5"/></g></svg></div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">The problem</p>
+      <h2 style="max-width:22ch">When a model disagrees with the measurements, there are three explanations.</h2>
+      <p class="muted" style="max-width:64ch;margin-top:20px">In 2011 the OPERA experiment measured neutrinos travelling faster than light. The cause was a loose fibre-optic cable. Telling these cases apart is slow, expert work, and it gets harder as learned models replace hand-built ones.</p>
+      <div class="three">
+        <div><p class="n">01</p><h3>The model is wrong</h3><p>A setting changed or the model never learned this regime. Re-fit it, retrain it, or stop trusting it here.</p></div>
+        <div><p class="n">02</p><h3>The instrument is wrong</h3><p>A sensor froze, drifted or picked up noise. Fix the hardware before believing any result.</p></div>
+        <div><p class="n">03</p><h3>Something new</h3><p>A force or effect the model has never seen. This is the case science is looking for.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section result">
+    <div class="wrap">
+      <div class="result-copy">
+        <p class="eyebrow">First result · Tellurion Referee</p>
+        <h2>A model's own confidence is not a safety check.</h2>
+        <p class="muted" style="max-width:56ch;margin-top:20px">On a locked test of 1,000 simulated pendulum runs, measured once, at a similar false-alarm rate:</p>
+        <p style="margin-top:28px"><a href="/research/">How we measured it →</a></p>
+      </div>
+      <div class="stats">
+        <div class="stat"><b>25.9%</b><p>of real problems missed by the model's own confidence</p></div>
+        <div class="stat ours"><b>3.6%</b><p>missed by the referee, which also names the likely cause</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">How we work</p>
+      <div class="principles">
+        <div><h3>Open by default</h3><p>Benchmarks, test protocols and reference code are public, so anyone can rerun our numbers.</p></div>
+        <div><h3>Locked tests</h3><p>Results come from a held-out test, run once and logged. We publish our weak numbers too.</p></div>
+        <div><h3>Physics first</h3><p>Known laws and instrument physics turn "something is off" into "this is what is off".</p></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer" id="contact">
+  <div class="wrap top">
+    <div>
+      <h2>Working with models of the physical world?</h2>
+      <p class="muted" style="margin:12px 0 0">We'd like to hear where they fail you. <a href="mailto:hello@tellurionai.com">hello@tellurionai.com</a></p>
+    </div>
+    <div class="links">
+      <a href="https://github.com/tellurionai">GitHub</a>
+      <a href="https://www.linkedin.com/company/tellurionai">LinkedIn</a>
+    </div>
+  </div>
+  <div class="wrap base">
+    <span>© 2026 Tellurion</span>
+    <span class="motto">Nullius in verba</span>
+  </div>
+</footer>
+</body>
+</html>

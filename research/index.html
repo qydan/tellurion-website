@@ -1,105 +1,42 @@
 <!doctype html>
 <html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Tellurion Referee — Research · Tellurion</title>
-<meta name="description" content="The Tellurion Referee decides whether a disagreement between a world model and the measurements is the model, the instrument, or something new. Results on a locked test of 1,000 simulated pendulum runs.">
-<link rel="canonical" href="https://tellurionai.com/research/">
-<meta name="theme-color" content="#0E1B2C">
-<meta property="og:type" content="article">
-<meta property="og:site_name" content="Tellurion">
-<meta property="og:title" content="Tellurion Referee: when a model disagrees with reality, say why">
-<meta property="og:description" content="On a locked test, a model's own confidence missed 25.9% of real problems; the referee missed 3.6% and named the likely cause.">
-<meta property="og:url" content="https://tellurionai.com/research/">
-<meta property="og:image" content="https://tellurionai.com/assets/img/og.png">
-<meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../favicon.svg" type="image/svg+xml">
-<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="../apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
-<link rel="stylesheet" href="../assets/site.css">
-</head>
-<body>
-<a class="skip" href="#main">Skip to content</a>
-
-<header class="site-header">
-  <div class="wrap">
-    <a class="brand" href="../" aria-label="Tellurion home"><svg width="52" height="32" viewBox="95 300 1010 620" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor"><path d="M1086.3 650.8A487.3 201.25 0 1 1 886.6 474.0" stroke-width="18.56" transform="rotate(-18.04 600.2 636.8)"/><path d="M987.9 352.4A125.2 55.8 0 0 1 1036.2 361.1" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M1080.6 384.7A125.2 55.8 0 0 1 990.1 462.2" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M944.5 462.4A125.2 55.8 0 0 1 942.3 352.6" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/></g><g fill="currentColor"><circle cx="599.6" cy="637.6" r="108.5"/><circle cx="966.2" cy="407.6" r="37"/><circle cx="1047.6" cy="346.2" r="12.5"/></g></svg><span>Tellurion</span></a>
-    <nav class="nav" aria-label="Main">
-      <a href="../timeline/">Timeline</a>
-      <a href="../research/" aria-current="page">Research</a>
-      <a href="https://github.com/tellurionai">Open source</a>
-      <a href="../#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<div class="paper">
-<main id="main" class="article">
-  <div class="wrap">
-    <aside>
-      <p class="k">Research note 01</p>
-      <p style="margin:0">October 2026</p>
-      <p class="k">Links</p>
-      <ul>
-        <li><a href="https://github.com/tellurionai/tellurion-referee">Code (Apache-2.0)</a></li>
-        <li><a href="https://tellurionai.github.io/tellurion-referee/">Live demo</a></li>
-        <li><a href="https://github.com/tellurionai/tellurion-referee/blob/main/docs/results_fact_sheet.md">Results fact sheet</a></li>
-        <li><a href="https://github.com/tellurionai/tellurion-referee/tree/v0.1-hackathon-test">Exact code tested</a></li>
-      </ul>
-      <p class="k">Built for</p>
-      <p style="margin:0">OSI hackathon, Oct 21–22, 2026</p>
-    </aside>
-
-    <article class="body">
-      <h1>Tellurion Referee: when a model disagrees with reality, say why.</h1>
-      <p class="standfirst">The referee watches a learned world model as it runs. When its predictions stop matching the measurements, it decides whether the model is wrong, the instrument is wrong, or something new is acting on the system, and shows its evidence.</p>
-
-      <figure>
-        <img src="../assets/img/figure1.png" width="2300" height="980" alt="Figure 1. Left: share of real problems missed by each method, with 95% confidence intervals. Right: true cause versus the referee's verdict." loading="lazy">
-        <figcaption><b>Figure 1.</b> Left: real problems missed, 95% CIs from 1,000 bootstrap resamples. Right: true cause vs the referee's verdict on the locked test.</figcaption>
-      </figure>
-
-      <h2>Result</h2>
-      <p>Measured once, on a locked test of 1,000 simulated pendulum runs never seen during development.</p>
-      <div class="table-wrap">
-        <table>
-          <thead><tr><th scope="col"><span class="skip">Metric</span></th><th scope="col" class="ours">Referee</th><th scope="col">Model's confidence</th><th scope="col">Prediction gap</th></tr></thead>
-          <tbody>
-            <tr><td>Real problems missed</td><td class="ours">3.6%</td><td>25.9%</td><td>3.6%</td></tr>
-            <tr><td>Detection AUROC</td><td class="ours">0.981</td><td>0.868</td><td>0.982</td></tr>
-            <tr><td>False alarms, normal runs</td><td class="ours">5.3%</td><td>6.2%</td><td>7.0%</td></tr>
-            <tr><td>Naming the cause (macro-F1)</td><td class="ours">0.472</td><td>0.292</td><td>0.365</td></tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h2>How it decides</h2>
-      <ol>
-        <li><b>Does the prediction match the sensors?</b> Yes: trust.</li>
-        <li><b>Do the angle and speed sensors agree with each other?</b> No: the instrument is wrong.</li>
-        <li><b>Does textbook physics explain the motion?</b> Yes: the model is wrong.</li>
-        <li><b>Does it fit after re-measuring length and friction?</b> Yes: the model is wrong, a setting changed. No: something new.</li>
-      </ol>
-
-      <h2>What doesn't work yet</h2>
-      <p>The referee's alarm is the prediction gap, so at noticing problems it ties a simple gap alarm. Its added value is naming the cause: 99.7% right when the model is at fault, but 16.7% for sensor faults and 5.4% for new forces. It gives its verdict at the first alarm, when its window still holds mostly pre-fault data. Everything here is simulated.</p>
-
-      <h2>Next</h2>
-      <p>Judging a few steps after the alarm, real pendulum recordings with faults we introduce ourselves, and fits that describe the form of a missing force instead of only flagging it.</p>
-    </article>
-  </div>
-</main>
-
-<footer class="site-footer">
-  <div class="wrap base">
-    <span>© 2026 Tellurion · <a href="mailto:hello@tellurionai.com">hello@tellurionai.com</a></span>
-    <span class="motto">Nullius in verba</span>
-  </div>
-</footer>
-</div>
-</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0E1B2C" />
+    <meta name="robots" content="index, follow" />
+    <title>Tellurion Referee — Research · Tellurion</title>
+    <meta
+      name="description"
+      content="The Tellurion Referee decides whether a disagreement between a world model and the measurements is the model, the instrument, or something new."
+    />
+    <link rel="canonical" href="https://tellurionai.com/research/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:site_name" content="Tellurion" />
+    <meta
+      property="og:title"
+      content="Tellurion Referee: when a model disagrees with reality, say why"
+    />
+    <meta
+      property="og:description"
+      content="On a locked test, a model's own confidence missed 25.9% of real problems; the referee missed 3.6% and named the likely cause."
+    />
+    <meta property="og:url" content="https://tellurionai.com/research/" />
+    <meta property="og:image" content="https://tellurionai.com/assets/img/og.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.png" sizes="32x32" type="image/png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+    <script src="/theme-init.js"></script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
 </html>

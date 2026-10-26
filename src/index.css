@@ -1,0 +1,460 @@
+@import "tailwindcss";
+
+@theme {
+  --color-navy: #0e1b2c;
+  --color-brass: #caa24a;
+  --color-brass-ink: #7a5d1c;
+  --color-ivory: #ece7da;
+  --color-mist: #b9c3cc;
+  --color-rule: #263646;
+  --color-page: #0e1b2c;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-body: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+}
+
+:root {
+  color-scheme: dark;
+  font-family: var(--font-body);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--color-page);
+  color: var(--color-ivory);
+  font-optical-sizing: auto;
+  scroll-behavior: smooth;
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --color-page: #f4f1e9;
+  --color-ivory: #17283a;
+  --color-mist: #52606e;
+  --color-rule: #d5d0c4;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-width: 320px;
+  margin: 0;
+  line-height: 1.6;
+  background: var(--color-page);
+  transition:
+    background-color 250ms ease,
+    color 250ms ease;
+}
+
+button,
+a {
+  -webkit-tap-highlight-color: transparent;
+}
+
+a {
+  color: inherit;
+}
+
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid #caa24a;
+  outline-offset: 4px;
+}
+
+::selection {
+  color: #0e1b2c;
+  background: #caa24a;
+}
+
+.wrap {
+  width: min(100% - 48px, 1240px);
+  margin-inline: auto;
+}
+
+.eyebrow {
+  margin: 0;
+  color: #caa24a;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.16em;
+  line-height: 1.5;
+  text-transform: uppercase;
+}
+
+.display {
+  font-family: var(--font-display);
+  font-weight: 400;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.section-rule {
+  border-top: 1px solid #263646;
+  border-color: var(--color-rule);
+}
+
+.hero-atmosphere {
+  background:
+    radial-gradient(ellipse at 84% 42%, rgb(202 162 74 / 9%), transparent 33%),
+    radial-gradient(ellipse at 5% 8%, rgb(202 162 74 / 5%), transparent 30%),
+    #0e1b2c;
+}
+
+:root[data-theme="light"] .hero-atmosphere {
+  background:
+    radial-gradient(ellipse at 84% 42%, rgb(202 162 74 / 14%), transparent 36%),
+    radial-gradient(ellipse at 5% 8%, rgb(202 162 74 / 9%), transparent 30%),
+    #f4f1e9;
+}
+
+.hero-atmosphere::before {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background-image:
+    linear-gradient(rgb(236 231 218 / 2.4%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(236 231 218 / 2.4%) 1px, transparent 1px);
+  background-size: 72px 72px;
+  content: "";
+  mask-image: linear-gradient(to bottom, black, transparent 88%);
+  pointer-events: none;
+}
+
+:root[data-theme="light"] .hero-atmosphere::before {
+  background-image:
+    linear-gradient(rgb(14 27 44 / 3%) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(14 27 44 / 3%) 1px, transparent 1px);
+}
+
+.hero-glow {
+  background: radial-gradient(circle, rgb(202 162 74 / 13%), transparent 68%);
+}
+
+:root[data-theme="light"] .hero-kicker {
+  color: var(--color-brass-ink);
+  border-color: rgb(122 93 28 / 25%);
+  background: rgb(202 162 74 / 12%);
+}
+
+:root[data-theme="light"] .eyebrow {
+  color: var(--color-brass-ink);
+}
+
+:root[data-theme="light"] .hero-atmosphere h1 .text-brass {
+  color: var(--color-brass-ink);
+}
+
+.site-header {
+  border-color: var(--color-rule);
+}
+
+:root[data-theme="light"] .site-header nav a.text-brass,
+:root[data-theme="light"] footer a.text-brass {
+  color: var(--color-brass-ink);
+}
+
+.theme-toggle {
+  cursor: pointer;
+}
+
+.theme-toggle:hover {
+  background: rgb(202 162 74 / 8%);
+}
+
+.hero-kicker {
+  margin-bottom: clamp(3rem, 6vh, 5rem);
+}
+
+.hero-cta {
+  text-decoration: none;
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 220ms ease,
+    border-color 220ms ease,
+    background-color 220ms ease;
+}
+
+.hero-cta:hover {
+  transform: translateY(-2px);
+}
+
+.hero-cta:active {
+  transform: translateY(0) scale(0.98);
+}
+
+.hero-cta-primary {
+  box-shadow: 0 10px 30px rgb(202 162 74 / 16%);
+}
+
+.hero-cta-primary:hover {
+  background-color: #d8b566;
+  box-shadow: 0 14px 36px rgb(202 162 74 / 27%);
+}
+
+.hero-cta-icon {
+  transition:
+    transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    background-color 220ms ease;
+}
+
+.hero-cta-primary:hover .hero-cta-icon {
+  transform: rotate(-35deg);
+  background-color: #1c3045;
+}
+
+.hero-cta-secondary:hover {
+  border-color: rgb(202 162 74 / 65%);
+  background-color: rgb(202 162 74 / 7%);
+}
+
+.hero-cta-arrow {
+  transition: transform 220ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+.hero-cta-secondary:hover .hero-cta-arrow {
+  transform: translate(2px, -2px);
+}
+
+.hero-instrument {
+  --color-ivory: #ece7da;
+  --color-mist: #b9c3cc;
+  background:
+    radial-gradient(ellipse at 50% -20%, rgb(202 162 74 / 15%), transparent 55%),
+    linear-gradient(145deg, #17283a 0%, #0c1724 70%);
+}
+
+.hero-float {
+  --color-ivory: #ece7da;
+  --color-mist: #b9c3cc;
+}
+
+:root[data-theme="light"] .hero-cta-secondary {
+  color: #17283a;
+  border-color: rgb(14 27 44 / 20%);
+  background: rgb(255 255 255 / 36%);
+}
+
+:root[data-theme="light"] .hero-cta-secondary:hover {
+  border-color: rgb(122 93 28 / 65%);
+  background: rgb(202 162 74 / 10%);
+}
+
+.hero-ticker {
+  background: linear-gradient(90deg, rgb(202 162 74 / 4%), transparent 28%, transparent 72%, rgb(202 162 74 / 4%));
+}
+
+.ticker-track {
+  animation: ticker-travel 38s linear infinite;
+}
+
+.diagnosis-card {
+  background:
+    radial-gradient(ellipse at 92% 4%, rgb(202 162 74 / 10%), transparent 43%),
+    linear-gradient(155deg, #142438, #0b1522 75%);
+  transition:
+    border-color 250ms ease,
+    transform 350ms cubic-bezier(0.2, 0.8, 0.2, 1),
+    box-shadow 350ms ease;
+}
+
+:root[data-theme="light"] .diagnosis-card {
+  background:
+    radial-gradient(ellipse at 92% 4%, rgb(202 162 74 / 12%), transparent 43%),
+    linear-gradient(155deg, #fffdf8, #ece8de 75%);
+  border-color: rgb(14 27 44 / 10%);
+}
+
+:root[data-theme="light"] .diagnosis-card .text-brass {
+  color: var(--color-brass-ink);
+}
+
+.diagnosis-card:hover {
+  transform: translateY(-6px);
+  border-color: rgb(202 162 74 / 40%);
+  box-shadow: 0 22px 50px rgb(0 0 0 / 20%);
+}
+
+.diagnosis-orbit {
+  position: relative;
+}
+
+.diagnosis-orbit::before,
+.diagnosis-orbit::after {
+  position: absolute;
+  border: 1px solid rgb(202 162 74 / 20%);
+  border-radius: 999px;
+  content: "";
+}
+
+.diagnosis-orbit::before {
+  inset: 10px -8px;
+  transform: rotate(-32deg);
+}
+
+.diagnosis-orbit::after {
+  inset: -7px 9px;
+  transform: rotate(34deg);
+}
+
+.result-showcase {
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 8% 100%, rgb(255 255 255 / 14%), transparent 33%),
+    radial-gradient(ellipse at 98% 0%, rgb(122 93 28 / 13%), transparent 35%),
+    #caa24a;
+}
+
+.metric-panel {
+  --color-ivory: #ece7da;
+  --color-mist: #b9c3cc;
+}
+
+:root[data-theme="light"] .latest-card {
+  color: #17283a;
+  border-color: rgb(14 27 44 / 13%);
+  background: rgb(255 255 255 / 58%);
+}
+
+:root[data-theme="light"] .latest-card:hover {
+  border-color: rgb(122 93 28 / 40%);
+  background: rgb(255 255 255 / 85%);
+}
+
+:root[data-theme="light"] .latest-card .text-brass {
+  color: var(--color-brass-ink);
+}
+
+.research-page {
+  background:
+    radial-gradient(ellipse at 6% 4%, rgb(202 162 74 / 11%), transparent 28%),
+    #0e1b2c;
+}
+
+:root[data-theme="light"] .research-page {
+  background:
+    radial-gradient(ellipse at 6% 4%, rgb(202 162 74 / 11%), transparent 28%),
+    #e9e5db;
+}
+
+:root[data-theme="light"] .research-page aside a,
+:root[data-theme="light"] .research-page aside .eyebrow {
+  color: var(--color-brass-ink);
+}
+
+.research-paper {
+  background: #f2f4f5;
+  box-shadow: 0 28px 90px rgb(0 0 0 / 20%);
+}
+
+.timeline-page {
+  background: var(--color-page);
+}
+
+.timeline-hero {
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 84% 50%, rgb(202 162 74 / 13%), transparent 34%),
+    linear-gradient(120deg, #0e1b2c 40%, #142438);
+}
+
+:root[data-theme="light"] .timeline-hero {
+  background:
+    radial-gradient(ellipse at 84% 50%, rgb(202 162 74 / 18%), transparent 34%),
+    linear-gradient(120deg, #f4f1e9 40%, #e9e5db);
+}
+
+:root[data-theme="light"] .timeline-hero::after {
+  border-color: rgb(122 93 28 / 18%);
+  box-shadow:
+    0 0 0 34px rgb(122 93 28 / 4%),
+    0 0 0 68px rgb(122 93 28 / 3%);
+}
+
+.timeline-hero::after {
+  position: absolute;
+  top: 50%;
+  right: 6%;
+  width: min(38vw, 420px);
+  aspect-ratio: 1;
+  border: 1px solid rgb(202 162 74 / 14%);
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 34px rgb(202 162 74 / 3%),
+    0 0 0 68px rgb(202 162 74 / 2%);
+  content: "";
+  pointer-events: none;
+  transform: translateY(-50%);
+}
+
+.timeline-entry {
+  transition: transform 250ms ease;
+}
+
+.timeline-entry:hover {
+  transform: translateX(4px);
+}
+
+.timeline-card {
+  border: 1px solid rgb(236 231 218 / 8%);
+  border-radius: 1.25rem;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(202 162 74 / 7%), transparent 50%),
+    rgb(255 255 255 / 2%);
+  padding: 1.5rem;
+  transition:
+    border-color 250ms ease,
+    background-color 250ms ease;
+}
+
+.timeline-entry:hover .timeline-card {
+  border-color: rgb(202 162 74 / 30%);
+}
+
+:root[data-theme="light"] .timeline-card {
+  border-color: rgb(14 27 44 / 12%);
+  background:
+    radial-gradient(ellipse at 100% 0%, rgb(202 162 74 / 10%), transparent 50%),
+    rgb(255 255 255 / 45%);
+}
+
+.site-footer .border-t {
+  border-color: var(--color-rule);
+}
+
+@keyframes ticker-travel {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@media (max-width: 640px) {
+  .wrap {
+    width: min(100% - 36px, 1240px);
+  }
+
+  .ticker-track {
+    animation-duration: 48s;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+
+  .diagnosis-card:hover,
+  .timeline-entry:hover,
+  .hero-cta:hover,
+  .hero-cta:active,
+  .hero-cta-primary:hover .hero-cta-icon,
+  .hero-cta-secondary:hover .hero-cta-arrow {
+    transform: none;
+  }
+}

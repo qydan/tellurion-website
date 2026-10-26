@@ -22,13 +22,20 @@ jobs:
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - uses: actions/checkout@v4
-      - name: Collect the site (skip repo-only files)
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build
+      - name: Add site assets and GitHub Pages fallbacks
         run: |
-          mkdir _site
-          rsync -a --exclude '.git' --exclude '.github' --exclude 'README.md' ./ _site/
+          cp -R assets/. dist/assets/
+          cp CNAME favicon.svg favicon-32.png apple-touch-icon.png icon-512.png dist/
+          cp dist/index.html dist/404.html
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
-          path: _site
+          path: dist
       - id: deployment
         uses: actions/deploy-pages@v4

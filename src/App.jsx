@@ -151,6 +151,12 @@ function Header() {
           </span>
         </Link>
         <nav className="flex items-center gap-4 text-[13px] sm:gap-8 sm:text-sm" aria-label="Main navigation">
+          <a
+            className="text-mist transition-colors hover:text-brass"
+            href="/map/"
+          >
+            Map
+          </a>
           <NavLink
             className={({ isActive }) =>
               `transition-colors hover:text-brass ${isActive ? "text-brass" : "text-mist"}`
@@ -264,7 +270,7 @@ function HomePage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-brass opacity-50" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-brass" />
                 </span>
-                Independent science, made legible
+                Independent AI safety research lab
               </motion.p>
               <motion.h1
                 className="display max-w-[12ch] text-[clamp(3.8rem,7vw,6.7rem)] leading-[0.98] text-ivory"
@@ -272,10 +278,9 @@ function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.75, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
               >
-                <span className="block">The model</span>
-                <span className="block">says one thing.</span>
-                <span className="mt-2 block text-brass italic sm:mt-3">Reality says</span>
-                <span className="block text-brass italic">another.</span>
+                <span className="block">Know when</span>
+                <span className="block">AI is wrong,</span>
+                <span className="mt-2 block text-brass italic sm:mt-3">and why.</span>
               </motion.h1>
               <motion.p
                 className="mt-8 max-w-[48ch] text-base leading-7 text-mist sm:text-lg sm:leading-8"
@@ -283,8 +288,10 @@ function HomePage() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.7, delay: 0.2 }}
               >
-                We build tools that check AI models of physical systems against real measurements
-                — and explain why they disagree.
+                Language models, agents, world models and robot policies increasingly act on their
+                own picture of the world. We study whether they know when that picture is wrong:
+                from the inside, by reverse-engineering what they represent, and from the outside,
+                by checking what they predict against reality.
               </motion.p>
               <motion.div
                 className="mt-9 flex flex-wrap items-center gap-3"
@@ -296,7 +303,7 @@ function HomePage() {
                   className="hero-cta hero-cta-primary group inline-flex min-h-14 items-center gap-4 rounded-full bg-brass py-2 pl-6 pr-2 text-sm font-semibold text-navy"
                   to="/research/"
                 >
-                  <span>Explore the first result</span>
+                  <span>Read our first result</span>
                   <span className="hero-cta-icon flex h-10 w-10 items-center justify-center rounded-full bg-navy text-brass">
                     <Arrow />
                   </span>
@@ -470,6 +477,49 @@ function HomePage() {
           </div>
         </section>
 
+        <section className="section-rule">
+          <div className="wrap py-20 sm:py-28">
+            <Reveal>
+              <SectionHeading label="Our first question · Gnomon">
+                Does the model know when it&apos;s wrong?
+              </SectionHeading>
+              <p className="mt-6 max-w-[68ch] text-base leading-7 text-mist">
+                That&apos;s metacognition: a model&apos;s knowledge of its own errors and limits. We
+                study it from the outside by checking predictions against reality, and from the
+                inside by reverse-engineering what a model represents. We publish what we find,
+                including when the answer is no.
+              </p>
+            </Reveal>
+            <div className="mt-12 grid gap-8 sm:grid-cols-2">
+              <Reveal>
+                <div className="border-t border-white/15 pt-5">
+                  <p className="font-mono text-[10px] text-brass">Method · Outside in · Referee</p>
+                  <h3 className="display mt-5 text-2xl text-ivory">Check behaviour against reality</h3>
+                  <p className="mt-3 text-sm leading-6 text-mist">
+                    Does the model&apos;s confidence match how often it&apos;s right? The Referee
+                    checks predictions against real measurements and names the cause when they
+                    disagree.
+                  </p>
+                </div>
+              </Reveal>
+              <Reveal delay={0.08}>
+                <div className="border-t border-white/15 pt-5">
+                  <p className="font-mono text-[10px] text-brass">Method · Inside out · Anatomist</p>
+                  <h3 className="display mt-5 text-2xl text-ivory">Read what the model has learned</h3>
+                  <p className="mt-3 text-sm leading-6 text-mist">
+                    Do its internals encode &ldquo;I might be wrong,&rdquo; and does that reach its
+                    actions? Our next study asks whether world models represent the hazards they
+                    act into.
+                  </p>
+                </div>
+              </Reveal>
+            </div>
+            <Link className="group mt-8 inline-flex items-center gap-3 text-sm text-brass" to="/map/">
+              Explore the research map <Arrow />
+            </Link>
+          </div>
+        </section>
+
         <section className="result-showcase">
           <div className="wrap grid gap-12 py-20 sm:py-28 lg:grid-cols-[0.85fr_1.15fr] lg:items-end">
             <Reveal>
@@ -566,11 +616,11 @@ function HomePage() {
                     <span className="font-mono text-[10px] text-mist/60">PLANNED</span>
                   </span>
                   <h3 className="display mt-8 text-3xl text-ivory transition-colors group-hover:text-brass sm:text-4xl">
-                    Does the referee work on a real pendulum?
+                    Do world models know the hazards they act into?
                   </h3>
                   <p className="mt-4 max-w-[52ch] text-sm leading-6 text-mist">
-                    Real recordings with faults we introduce ourselves, and a referee that waits a
-                    moment before naming the cause.
+                    A first metacognition study (Gnomon): comparing DreamerV3 and TD-MPC2 in
+                    simulated environments with built-in hazards.
                   </p>
                   <span className="mt-8 inline-flex items-center gap-2 text-sm text-brass">
                     See the timeline <Arrow />
@@ -755,11 +805,13 @@ function TimelinePage() {
                 <div className="timeline-card max-w-[70ch]">
                   <p className="eyebrow !text-[10px]">Research</p>
                   <h2 className="display mt-3 text-3xl leading-tight text-mist">
-                    Does the referee work on a real pendulum?
+                    Do world models know the hazards they act into?
                   </h2>
                   <p className="mt-3 text-sm leading-6 text-mist">
-                    Real recordings with faults we introduce ourselves, and a referee that waits a
-                    moment after the alarm before naming the cause.
+                    A first metacognition study (Gnomon). We compare a world model that
+                    reconstructs what it sees (DreamerV3) with one that doesn&apos;t (TD-MPC2), in
+                    simulated environments with built-in hazards: does each model represent the
+                    hazard internally, and does that knowledge change what it does?
                   </p>
                 </div>
               </article>
@@ -822,7 +874,7 @@ export default function App() {
     ? {
         title: "Tellurion Referee — Research · Tellurion",
         description:
-          "The Tellurion Referee decides whether a disagreement between a world model and the measurements is the model, the instrument, or something new.",
+          "The Tellurion Referee decides whether a disagreement between an AI model and the measurements is the model, the instrument, or something new. Results on a locked test of 1,000 simulated pendulum runs.",
         canonical: "https://tellurionai.com/research/",
       }
     : location.pathname.startsWith("/timeline")
@@ -834,9 +886,9 @@ export default function App() {
         }
       : location.pathname === "/"
         ? {
-            title: "Tellurion — Know when your world model is wrong, and why",
+            title: "Tellurion — Know when AI is wrong, and why",
             description:
-              "Tellurion builds tools that check AI models of physical systems against reality, and explain why they disagree.",
+              "An independent AI safety research lab studying whether AI systems know when they are wrong, from their internals and by checking predictions against reality.",
             canonical: "https://tellurionai.com/",
           }
         : {

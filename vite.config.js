@@ -12,6 +12,7 @@ export default defineConfig({
     rollupOptions: {
       input: {
         main: resolve(root, "index.html"),
+        map: resolve(root, "map/index.html"),
         research: resolve(root, "research/index.html"),
         timeline: resolve(root, "timeline/index.html"),
       },

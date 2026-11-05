@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Research map · Tellurion</title>
+<meta name="description" content="An interactive map of Gnomon, Tellurion's first research question: does the model know when it's wrong? See what is done, planned and open.">
+<link rel="canonical" href="https://tellurionai.com/map/">
+<meta name="theme-color" content="#0E1B2C">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Tellurion">
+<meta property="og:title" content="Tellurion research map">
+<meta property="og:description" content="Does the model know when it's wrong? What we have done, what is planned, and what is open.">
+<meta property="og:url" content="https://tellurionai.com/map/">
+<meta property="og:image" content="https://tellurionai.com/assets/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../favicon.svg" type="image/svg+xml">
+<link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="../assets/site.css">
+<style>
+.map-head .wrap{padding-block:56px 24px}
+.layer{border-top:1px solid var(--rule-dark)}
+.layer>.wrap{padding-block:56px 72px}
+.orbit-box{display:grid;grid-template-columns:minmax(0,3fr) minmax(260px,2fr);gap:32px;align-items:start;margin-top:32px}
+.orbit-svg{width:100%;height:auto;display:block}
+.orbit-svg .node{cursor:pointer}
+.orbit-svg .node circle{fill:var(--navy);stroke:var(--brass);stroke-width:2;transition:r .15s}
+.orbit-svg .node.active circle,.orbit-svg .node:hover circle{fill:var(--brass)}
+.orbit-svg .node:focus-visible{outline:none}
+.orbit-svg .node:focus-visible circle{stroke-width:4}
+.orbit-svg .link{stroke:#4A5D70;stroke-width:1.25;stroke-dasharray:4 5}
+.orbit-svg .link.active{stroke:var(--brass);stroke-dasharray:none}
+.orbit-svg text{fill:var(--ivory);font-family:var(--body);font-size:15px}
+.orbit-svg .sun-label{fill:var(--navy);font-family:var(--display);font-size:26px}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.chip{font:inherit;font-size:14px;background:none;color:var(--ivory);border:1px solid #4A5D70;border-radius:999px;padding:6px 14px;cursor:pointer;min-height:36px}
+.chip[aria-pressed="true"],.chip:hover{border-color:var(--brass);color:var(--brass)}
+.panel{border:1px solid var(--rule-dark);padding:24px 26px;background:#122236;min-height:180px}
+.panel .k{margin:0 0 8px;font-family:var(--mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--brass)}
+.panel h3{font-size:28px;margin-bottom:10px}
+.panel p{margin:0 0 10px;color:var(--mist)}
+.panel .links a{margin-right:16px}
+.grid-scroll{overflow-x:auto;margin-top:32px;-webkit-overflow-scrolling:touch}
+.ggrid{display:grid;grid-template-columns:minmax(150px,1.4fr) repeat(4,minmax(110px,1fr));gap:1px;background:var(--rule-dark);border:1px solid var(--rule-dark);min-width:640px}
+.ggrid>div,.ggrid>button{background:var(--navy);padding:14px 14px}
+.gh{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--mist)}
+.gq b{display:block;font-family:var(--display);font-weight:400;font-size:20px;line-height:1.15}
+.gq span{font-size:13px;color:var(--mist)}
+.cell{font:inherit;text-align:left;border:0;cursor:pointer;color:var(--ivory);min-height:72px;position:relative}
+.cell .s{display:inline-block;font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;padding:3px 8px;border-radius:999px;border:1px solid #4A5D70;color:var(--mist)}
+.cell.done .s{background:var(--brass);border-color:var(--brass);color:var(--navy)}
+.cell.partial .s{border-color:var(--brass);color:var(--brass)}
+.cell.planned .s{border-style:dashed;border-color:var(--brass);color:var(--brass)}
+.cell.active .s{background:#2C3B4A;border-color:#2C3B4A;color:var(--ivory)}
+.cell.active{background:#101F31}
+.cell .t{display:block;margin-top:8px;font-size:13px;color:var(--mist);line-height:1.35}
+.cell:hover,.cell[aria-pressed="true"]{background:#16293E}
+.cell[aria-pressed="true"]{box-shadow:inset 0 0 0 2px var(--brass)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-top:16px;font-size:14px;color:var(--mist)}
+.legend .cell{min-height:0;padding:0;background:none;cursor:default}
+#cellPanel{margin-top:24px}
+@media (max-width:760px){.orbit-box{grid-template-columns:1fr}.orbit-svg .olabel{display:none}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-header">
+  <div class="wrap">
+    <a class="brand" href="../" aria-label="Tellurion home"><svg width="52" height="32" viewBox="95 300 1010 620" aria-hidden="true" focusable="false"><g fill="none" stroke="currentColor"><path d="M1086.3 650.8A487.3 201.25 0 1 1 886.6 474.0" stroke-width="18.56" transform="rotate(-18.04 600.2 636.8)"/><path d="M987.9 352.4A125.2 55.8 0 0 1 1036.2 361.1" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M1080.6 384.7A125.2 55.8 0 0 1 990.1 462.2" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/><path d="M944.5 462.4A125.2 55.8 0 0 1 942.3 352.6" stroke-width="10.63" transform="rotate(-18.04 966.2 407.4)"/></g><g fill="currentColor"><circle cx="599.6" cy="637.6" r="108.5"/><circle cx="966.2" cy="407.6" r="37"/><circle cx="1047.6" cy="346.2" r="12.5"/></g></svg><span>Tellurion</span></a>
+    <nav class="nav" aria-label="Main">
+      <a href="../map/" aria-current="page">Map</a>
+      <a href="../timeline/">Timeline</a>
+      <a href="../research/">Research</a>
+      <a href="https://github.com/tellurionai">Open source</a>
+      <a href="../#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="map-head">
+    <div class="wrap">
+      <p class="eyebrow">Research map</p>
+      <h1 style="font-size:clamp(40px,5.4vw,72px)">Does the model know when it's wrong?</h1>
+      <p class="lede" style="margin-top:20px">A system that can't tell it's out of its depth is unsafe to deploy: in June 2026, Waymo <a href="https://www.cbtnews.com/waymo-recalls-nearly-3900-robotaxis/">recalled 3,871 robotaxis</a> after some drove into active freeway construction zones. Our first question, Gnomon, mapped two ways: the five AI safety domains it feeds, and which parts we have answered so far.</p>
+    </div>
+  </section>
+
+  <section class="layer" aria-labelledby="l1">
+    <div class="wrap">
+      <p class="eyebrow">Layer 1 · Why it matters</p>
+      <h2 id="l1">The five domains it feeds</h2>
+      <p class="muted" style="max-width:62ch;margin-top:14px">Five AI safety domains this one question feeds, in our view. It is not a map of all of AI safety. Select a planet.</p>
+      <div class="orbit-box">
+        <div>
+          <svg class="orbit-svg" id="orbit" viewBox="-80 0 960 520" role="group" aria-label="Gnomon at the centre, connected to five AI safety domains"></svg>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div class="panel" id="orbitPanel" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="layer" aria-labelledby="l2">
+    <div class="wrap">
+      <p class="eyebrow">Layer 2 · What we've done</p>
+      <h2 id="l2">The Gnomon grid</h2>
+      <p class="muted" style="max-width:62ch;margin-top:14px">The same five domains, each asked of four kinds of model. We focus on world models and robot policies, where the question is least studied, and build on work on agents and language models. Select a cell.</p>
+      <div class="legend" aria-hidden="true">
+        <span><span class="cell done"><span class="s">Done</span></span></span>
+        <span><span class="cell partial"><span class="s">Partial</span></span></span>
+        <span><span class="cell planned"><span class="s">Planned</span></span></span>
+        <span><span class="cell open"><span class="s">Open</span></span></span>
+        <span><span class="cell active"><span class="s">Active field</span></span></span>
+      </div>
+      <div class="grid-scroll"><div class="ggrid" id="ggrid"></div></div>
+      <div class="panel" id="cellPanel" aria-live="polite"></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(function(){
+var NS='http://www.w3.org/2000/svg';
+var nodes=[
+ {id:'evals',name:'Evaluations',via:'Referee',text:'Does a model’s confidence match how often it’s right? That calibration check is an evaluation every deployed model needs.'},
+ {id:'interp',name:'Interpretability',via:'Anatomist',text:'Whether “I might be wrong” is written somewhere in a model’s internals is an interpretability question. Answering it is the Anatomist’s job.'},
+ {id:'honesty',name:'Honesty',via:'Referee and Anatomist',text:'A model can know one thing and say or do another. Comparing what it represents inside with what it does outside shows whether it’s being straight, and is a first step toward catching deception.'},
+ {id:'alignment',name:'Alignment',via:'Anatomist',text:'If a model knows it’s wrong but acts anyway, can steering or training connect knowing to doing? Closing that gap is one small, concrete piece of alignment.'},
+ {id:'control',name:'Monitoring',via:'Referee',text:'When a model can’t catch its own errors, something outside it has to. That is the Referee’s job. AI control uses monitors too, but assumes the model may be trying to evade them; we start with honest mistakes.'}
+];
+var svg=document.getElementById('orbit'),cx=400,cy=262,rx=318,ry=196,rot=-12*Math.PI/180;
+function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+svg.appendChild(el('ellipse',{cx:cx,cy:cy,rx:rx,ry:ry,fill:'none',stroke:'#263646','stroke-width':1.5,transform:'rotate(-12 '+cx+' '+cy+')'}));
+svg.appendChild(el('ellipse',{cx:cx,cy:cy,rx:150,ry:92,fill:'none',stroke:'#263646','stroke-width':1,transform:'rotate(-12 '+cx+' '+cy+')'}));
+var links={},gs={};
+nodes.forEach(function(n,i){
+ var a=-Math.PI/2+i*2*Math.PI/nodes.length;
+ var x0=rx*Math.cos(a),y0=ry*Math.sin(a);
+ n.x=cx+x0*Math.cos(rot)-y0*Math.sin(rot);n.y=cy+x0*Math.sin(rot)+y0*Math.cos(rot);
+ var l=el('line',{x1:cx,y1:cy,x2:n.x,y2:n.y,'class':'link'});svg.appendChild(l);links[n.id]=l;
+});
+svg.appendChild(el('circle',{cx:cx,cy:cy,r:62,fill:'#CAA24A'}));
+var sl=el('text',{x:cx,y:cy+9,'text-anchor':'middle','class':'sun-label'});sl.textContent='Gnomon';svg.appendChild(sl);
+nodes.forEach(function(n){
+ var g=el('g',{'class':'node',tabindex:0,role:'button','aria-label':n.name});
+ g.appendChild(el('circle',{cx:n.x,cy:n.y,r:13}));
+ var right=n.x>=cx;var t=el('text',{x:n.x+(right?22:-22),y:n.y+5,'text-anchor':right?'start':'end','class':'olabel'});t.textContent=n.name;g.appendChild(t);
+ g.addEventListener('click',function(){pick(n.id)});
+ g.addEventListener('keydown',function(e){if(e.key==='Enter'||e.key===' '){e.preventDefault();pick(n.id)}});
+ svg.appendChild(g);gs[n.id]=g;
+});
+var chips=document.getElementById('chips'),cb={};
+nodes.forEach(function(n){var b=document.createElement('button');b.className='chip';b.type='button';b.textContent=n.name;b.setAttribute('aria-pressed','false');b.onclick=function(){pick(n.id)};chips.appendChild(b);cb[n.id]=b;});
+var op=document.getElementById('orbitPanel');
+function pick(id){var n=nodes.filter(function(m){return m.id===id})[0];
+ nodes.forEach(function(m){var on=m.id===id;links[m.id].setAttribute('class','link'+(on?' active':''));gs[m.id].setAttribute('class','node'+(on?' active':''));cb[m.id].setAttribute('aria-pressed',on?'true':'false');});
+ op.innerHTML='';var k=document.createElement('p');k.className='k';k.textContent='Gnomon \u2192 '+n.name+' \u00b7 via the '+n.via;var h=document.createElement('h3');h.textContent=n.name;var p=document.createElement('p');p.textContent=n.text;op.append(k,h,p);
+ if(n.link){var d=document.createElement('p');d.className='links';var a=document.createElement('a');a.href=n.link[1];a.textContent=n.link[0];d.appendChild(a);op.appendChild(d);}
+}
+pick('evals');
+
+var cols=['World models','Robot policies (VLAs, world action models)','Agents','Language models'];
+var qs=[
+ {k:'Q1',name:'Evaluations',sub:'Does its confidence match how often it’s right?'},
+ {k:'Q2',name:'Interpretability',sub:'Do its internals encode “I might be wrong”?'},
+ {k:'Q3',name:'Honesty',sub:'Does what it knows reach what it says and does?'},
+ {k:'Q4',name:'Alignment',sub:'Can steering or training close the gap?'},
+ {k:'Q5',name:'Monitoring',sub:'When it doesn’t know, can an outside check catch it?'}
+];
+var R='../research/',D='https://tellurionai.github.io/tellurion-referee/',C='https://github.com/tellurionai/tellurion-referee';
+var cells={
+ 'Q1-0':{st:'partial',title:'A model\u2019s own confidence missed a quarter of problems',text:'From the Referee study: in one small learned model of a simulated pendulum (the simplest kind of world model), the model\u2019s own confidence, measured as agreement between five copies, missed 25.9% of real problems on a locked test of 1,000 runs. One model, simulation only.',links:[['Write-up',R]]},
+ 'Q5-0':{st:'done',title:'Referee: an outside check catches what the model misses',text:'The Referee checks predictions against measurements and names the likely cause: the model, the sensor, or something new. It missed 3.6% of problems against 25.9% for the model\u2019s own confidence, at a similar false-alarm rate. Limits: simulation only, and naming the cause is weak for sensor faults and new forces.',links:[['Write-up',R],['Live demo',D],['Code',C]]},
+ 'Q2-0':{st:'planned',title:'Do world models represent the hazards they act into?',text:'Comparing a world model that reconstructs what it sees (DreamerV3) with one that doesn\u2019t (TD-MPC2), in simulated environments with built-in hazards. Part one: is the hazard written in the model\u2019s internals?'},
+ 'Q3-0':{st:'planned',title:'If they know, does it change what they do?',text:'Part two of the same study: when a world model\u2019s internals flag a hazard, does its planner avoid it, or act into it anyway?'},
+ 'Q1-3':{st:'active',title:'Widely studied',text:'Language models often know what they know, though not always. We build on this work rather than lead it.',links:[['Language Models (Mostly) Know What They Know','https://arxiv.org/abs/2207.05221']]},
+ 'Q2-3':{st:'active',title:'Widely studied',text:'Language models represent true and false statements along readable directions in their internals. We build on this work rather than lead it.',links:[['The Geometry of Truth','https://arxiv.org/abs/2310.06824']]},
+ 'Q3-3':{st:'active',title:'Widely studied',text:'Language models\u2019 internals carry signs of their own errors that their answers don\u2019t show. We build on this work rather than lead it.',links:[['LLMs Know More Than They Show','https://arxiv.org/abs/2410.02707']]},
+ 'Q4-3':{st:'active',title:'Widely studied',text:'Steering a language model along concept directions in its activations changes its behaviour. We build on this work rather than lead it.',links:[['Representation Engineering','https://arxiv.org/abs/2310.01405']]},
+ 'Q5-3':{st:'active',title:'Widely studied',text:'Outside monitors that review a language model\u2019s outputs are well studied, including in AI control, which assumes the model may be trying to slip past them. We build on this work rather than lead it.',links:[['AI Control','https://arxiv.org/abs/2312.06942']]},
+ 'Q5-2':{st:'active',title:'Growing fast',text:'Monitoring an agent\u2019s actions so that a trusted check catches unsafe ones is a fast-growing area, and central to AI control. We build on this work rather than lead it.',links:[['AI Control','https://arxiv.org/abs/2312.06942']]}
+};
+var LABEL={done:'Done',partial:'Partial',planned:'Planned',open:'Open',active:'Active field'};
+var g=document.getElementById('ggrid'),cp=document.getElementById('cellPanel'),btns={};
+function hd(t){var d=document.createElement('div');d.className='gh';d.textContent=t;return d;}
+g.appendChild(hd('Domain'));cols.forEach(function(c){g.appendChild(hd(c))});
+qs.forEach(function(q){
+ var d=document.createElement('div');d.className='gq';d.innerHTML='<b></b><span></span>';d.querySelector('b').textContent=q.name;d.querySelector('span').textContent=q.sub;g.appendChild(d);
+ cols.forEach(function(c,ci){var key=q.k+'-'+ci,info=cells[key]||{st:'open'};
+  var b=document.createElement('button');b.type='button';b.className='cell '+info.st;b.setAttribute('aria-pressed','false');
+  b.setAttribute('aria-label',q.k+' '+q.name+', '+c+': '+LABEL[info.st]);
+  var s=document.createElement('span');s.className='s';s.textContent=LABEL[info.st];b.appendChild(s);
+  if(info.title){var t=document.createElement('span');t.className='t';t.textContent=info.title;b.appendChild(t);}
+  b.onclick=function(){show(key,q,c,info)};g.appendChild(b);btns[key]=b;});
+});
+function show(key,q,c,info){
+ Object.keys(btns).forEach(function(k){btns[k].setAttribute('aria-pressed',k===key?'true':'false')});
+ cp.innerHTML='';var k=document.createElement('p');k.className='k';k.textContent=q.name+' \u00b7 '+c+' \u00b7 '+LABEL[info.st];cp.appendChild(k);
+ var h=document.createElement('h3');h.textContent=info.title||'Open';cp.appendChild(h);
+ var p=document.createElement('p');p.textContent=info.text||('Nobody at Tellurion is working on this cell yet: '+q.sub.toLowerCase().replace(/\?$/,'')+', for '+c.toLowerCase()+'? If you are, we\u2019d like to hear from you.');cp.appendChild(p);
+ if(info.links){var d=document.createElement('p');d.className='links';info.links.forEach(function(l){var a=document.createElement('a');a.href=l[1];a.textContent=l[0];d.appendChild(a)});cp.appendChild(d);}
+ if(!info.text){var m=document.createElement('p');m.className='links';var a=document.createElement('a');a.href='mailto:hello@tellurionai.com';a.textContent='hello@tellurionai.com';m.appendChild(a);cp.appendChild(m);}
+}
+show('Q5-0',qs[4],cols[0],cells['Q5-0']);
+})();
+</script>
+
+<footer class="site-footer" id="contact">
+  <div class="wrap base" style="padding-top:32px">
+    <span>© 2026 Tellurion · <a href="mailto:hello@tellurionai.com">hello@tellurionai.com</a></span>
+    <span class="motto">Nullius in verba</span>
+  </div>
+</footer>
+
+</body>
+</html>
